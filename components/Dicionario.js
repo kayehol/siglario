@@ -1,40 +1,23 @@
-import {StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import { FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+import Sigla from './Sigla.js';
 import { siglas } from '../utils/siglas.js';
 
-const Sigla = ({ titulo }) => (
-    <View style={styles.item}>
-        <Text style={styles.title}>{titulo}</Text>
-    </View>
-)
-
-export default function Dicionario() {
+export default function Dicionario({ navigation }) {
     const renderItem = ({ item }) => (
-        <Sigla titulo={item.titulo}></Sigla>
+        <TouchableOpacity onPress={() => navigation.navigate('SiglaDetalhe', { id: item.id })}>
+            <Sigla titulo={item.titulo} />
+        </TouchableOpacity>
     );
+    const siglasOrdenadas = siglas.sort((a,b) => a.titulo.localeCompare(b.titulo));
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={{ flex: 1 }}>
             <FlatList 
-                data={siglas}
+                data={siglasOrdenadas}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                style={{ flex: 1, padding: 10}}
             />
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1, 
-    },
-    item: {
-        backgroundColor: '#16a085',
-        color: '#fff',
-        padding: 20,
-        marginVertical: 8,
-    },
-    title: {
-        fontSize: 32,
-        color: '#fff'
-    },
-});

@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home.js';
 import Dicionario from './components/Dicionario.js';
 import Quiz from './components/Quiz.js';
+import SiglaDetalhe from './components/SiglaDetalhe.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ export default function App() {
           name="Quiz" 
           component={Quiz} 
           options={{ title: 'Quiz'}} 
+        />
+        <Stack.Screen 
+          name="SiglaDetalhe"
+          component={SiglaDetalhe}
+          options={{ title: 'Sigla' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

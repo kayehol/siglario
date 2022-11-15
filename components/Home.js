@@ -1,18 +1,18 @@
-import {StyleSheet, View, Button } from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
-            <Button
-                title="Dicionário"
-                onPress={() => navigation.navigate('Dicionario')}
-                style={ styles.button }
-            />
-            <Button 
-                title="Quiz"
-                onPress={() => navigation.navigate('Quiz')}
-                style={ styles.button }
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('Dicionario')}>
+                <Text style={ styles.text }>
+                    Dicionário
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+                <Text style={ styles.text }>
+                    Quiz
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -21,13 +21,15 @@ const styles = StyleSheet.create({
     container: {
       flex: 1, 
       justifyContent: 'center',
-      backgroundColor: '#95a5a6',
+      backgroundColor: 'lightgrey',
       padding: 10,
       marginVertical: 8,
     },
-    button: {
+    text: {
         backgroundColor: '#16a085',
-        color: '#fff',
-        marginVertical: 20,
+        color: 'white',
+        padding: 20,
+        marginTop: 20,
+        fontSize: 28
     }
 });
