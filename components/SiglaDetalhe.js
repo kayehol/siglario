@@ -14,6 +14,12 @@ export default function SiglaDetalhe({ route }) {
                 <Text style={ styles.significado }>
                     {sigla.significado}
                 </Text>
+                <Text style={ styles.tagTexto}>
+                    Categoria:
+                </Text>
+                <Text style={ styles.tag }>
+                    {sigla.tag.toLocaleUpperCase()}
+                </Text>
             </View>
         )
     })
@@ -41,5 +47,19 @@ const styles = StyleSheet.create({
         fontSize: 34,
         color: 'white',
         marginTop: 10
+    },
+    tagTexto: {
+        color: 'white',
+        fontSize: 16,
+        paddingTop: 20
+    },
+    tag: {
+        fontSize: 16,
+        color: 'white',
+        backgroundColor: '#0b4d40',
+        marginTop: 10,
+        padding: 10,
+        alignSelf: 'flex-start',
+        borderRadius: 10
     }
 });
