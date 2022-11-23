@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View } from 'react-native';
-import { siglas } from '../utils/siglas.js';
+import { siglas } from '../../utils/siglas.js';
 
 export default function SiglaDetalhe({ route }) {
     const { id } = route.params;

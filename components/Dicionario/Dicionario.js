@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Sigla from './Sigla.js';
 import { Filtro } from './Filtro.js';
-import { siglas } from '../utils/siglas.js';
+import { siglas } from '../../utils/siglas.js';
 
 export default function Dicionario({ navigation }) {
     const [isFiltroOpen, setFiltroOpen] = useState(false);
@@ -25,17 +25,22 @@ export default function Dicionario({ navigation }) {
     }, [isFiltroOpen])
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: '#16a085', paddingVertical: 10 }}>
             <TouchableOpacity onPress={() => setFiltroOpen(!isFiltroOpen)}>
                 <Filtro />
             </TouchableOpacity>
-            {isFiltroOpen && 
-                <Picker
-                    selectedValue={filtro}
-                    onValueChange={(itemValue, itemIndex) => setFiltro(itemValue)}
-                >
-                    {siglasTags.map((tag) => <Picker.Item key={tag.indexOf()} label={tag} value={tag} />)}
-                </Picker>
+            {isFiltroOpen &&
+                <View style={{ paddingHorizontal: 10 }}>
+                    <Picker
+                        selectedValue={filtro}
+                        onValueChange={(itemValue, itemIndex) => setFiltro(itemValue)}
+                        mode='dropdown'
+                        dropdownIconColor='white'
+                        style={{ color: 'white'}}
+                    >
+                        {siglasTags.map((tag) => <Picker.Item key={tag.indexOf()} label={tag} value={tag} />)}
+                    </Picker>
+                </View> 
             }
             <FlatList 
                 data={siglasFiltradas}

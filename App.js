@@ -1,21 +1,35 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
+
 import Home from './components/Home.js';
-import Dicionario from './components/Dicionario.js';
+import Dicionario from './components/Dicionario/Dicionario.js';
 import Quiz from './components/Quiz.js';
-import SiglaDetalhe from './components/SiglaDetalhe.js';
+import SiglaDetalhe from './components/Dicionario/SiglaDetalhe.js';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <StatusBar style="autok" />
+      <Stack.Navigator 
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#127a66'
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          }
+        }}
+      >
         <Stack.Screen 
           name="Home" 
           component={Home} 
-          options={{ title: 'Siglário'}} 
+          options={{ title: ''}} 
         />
         <Stack.Screen 
           name="Dicionario" 

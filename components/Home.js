@@ -38,21 +38,21 @@ const styles = StyleSheet.create({
     container: {
       flex: 1, 
       justifyContent: 'center',
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#16a085',
       padding: 10,
-      marginVertical: 8,
     },
     menuItem: {
-        backgroundColor: '#16a085',
+        backgroundColor: '#127a66',
         padding: 20,
         marginTop: 20,
         borderRadius: 10,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
     menuItemText: {
         color: 'white',
         fontSize: 28,
-        marginLeft: 20,
+        marginLeft: 10,
         alignSelf: 'center'
     },
     menuItemIcon: {

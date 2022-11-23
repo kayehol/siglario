@@ -12,8 +12,7 @@ export default function Sigla({ titulo }) {
 
 const styles = StyleSheet.create({
     sigla: {
-        backgroundColor: '#16a085',
-        color: '#fff',
+        backgroundColor: '#127a66',
         padding: 20,
         marginVertical: 8,
         borderRadius: 10
