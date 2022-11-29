@@ -1,4 +1,4 @@
-import { FlatList, View, TouchableOpacity } from 'react-native';
+import { FlatList, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from 'react';
 
@@ -10,8 +10,9 @@ export default function Dicionario({ navigation }) {
     const [isFiltroOpen, setFiltroOpen] = useState(false);
     const [filtro, setFiltro] = useState('');
 
-    const siglasOrdenadas = siglas.sort((a,b) => a.titulo.localeCompare(b.titulo));
     const siglasTags = [...new Set(siglas.map(sigla => sigla.tag))];
+    
+    const siglasOrdenadas = siglas.sort((a,b) => a.titulo.localeCompare(b.titulo));
     const siglasFiltradas = filtro !== '' ? siglasOrdenadas.filter((sigla) => sigla.tag == filtro) : siglasOrdenadas;
 
     const renderItem = ({ item }) => (
@@ -20,24 +21,23 @@ export default function Dicionario({ navigation }) {
         </TouchableOpacity>
     );
 
-    useEffect(() => {
-        if (!isFiltroOpen) setFiltro('');
-    }, [isFiltroOpen])
+    const handleChange = (itemValue) => itemValue == 'default' ? setFiltro('') : setFiltro(itemValue);
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#16a085', paddingVertical: 10 }}>
+        <View style={ styles.container }>
             <TouchableOpacity onPress={() => setFiltroOpen(!isFiltroOpen)}>
                 <Filtro />
             </TouchableOpacity>
             {isFiltroOpen &&
-                <View style={{ paddingHorizontal: 10 }}>
+                <View style={ styles.containerFiltro }>
                     <Picker
                         selectedValue={filtro}
-                        onValueChange={(itemValue, itemIndex) => setFiltro(itemValue)}
+                        onValueChange={(itemValue) => handleChange(itemValue)}
                         mode='dropdown'
                         dropdownIconColor='white'
-                        style={{ color: 'white'}}
+                        style={ styles.picker }
                     >
+                        <Picker.Item label='Nenhum' value='default' />
                         {siglasTags.map((tag) => <Picker.Item key={tag.indexOf()} label={tag} value={tag} />)}
                     </Picker>
                 </View> 
@@ -46,8 +46,26 @@ export default function Dicionario({ navigation }) {
                 data={siglasFiltradas}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-                style={{ flex: 1, padding: 10}}
+                style={ styles.lista }
             />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        backgroundColor: '#16a085', 
+        paddingVertical: 10 
+    },
+    containerFiltro: {
+        paddingHorizontal: 10
+    },
+    lista: {
+        flex: 1, 
+        padding: 10
+    },
+    picker: {
+        color: 'white'
+    }
+})
