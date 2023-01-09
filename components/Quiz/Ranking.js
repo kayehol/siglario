@@ -18,11 +18,11 @@ export default function Ranking() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>
+            <Text style={styles.titulo}>
                 <FontAwesome name="trophy" size={40} color="gold" />
             </Text>
             {rankingMock.map((user, idx) => (
-                <View key={idx} style={styles.line(idx)}>
+                <View key={idx} style={styles.linha(idx)}>
                     <Text style={styles.nome} key={idx}> {idx+1} - {user.nome}</Text>
                     <Text style={styles.pontos}>{user.total}</Text>
                 </View>
@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#16a085',
         padding: 20,
     },
-    title: {
+    titulo: {
         textAlign: 'center',
         marginBottom: 20,
     },
-    line: idx => ({
+    linha: idx => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
