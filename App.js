@@ -5,8 +5,9 @@ import { StatusBar } from 'expo-status-bar';
 
 import Home from './components/Home.js';
 import Dicionario from './components/Dicionario/Dicionario.js';
-import Quiz from './components/Quiz.js';
+import Quiz from './components/Quiz/Quiz.js';
 import SiglaDetalhe from './components/Dicionario/SiglaDetalhe.js';
+import Ranking from './components/Quiz/Ranking.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,11 @@ export default function App() {
           name="SiglaDetalhe"
           component={SiglaDetalhe}
           options={{ title: 'Sigla' }}
+        />
+        <Stack.Screen 
+          name="Ranking"
+          component={Ranking}
+          options={{ title: 'Ranking' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
