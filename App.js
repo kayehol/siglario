@@ -8,6 +8,7 @@ import Dicionario from './components/Dicionario/Dicionario.js';
 import Quiz from './components/Quiz/Quiz.js';
 import SiglaDetalhe from './components/Dicionario/SiglaDetalhe.js';
 import Ranking from './components/Quiz/Ranking.js';
+import GameOver from './components/Quiz/GameOver.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,11 @@ export default function App() {
           name="Ranking"
           component={Ranking}
           options={{ title: 'Ranking' }}
+        />
+        <Stack.Screen 
+          name="GameOver"
+          component={GameOver}
+          options={{ title: 'Game Over'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
