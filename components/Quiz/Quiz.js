@@ -4,7 +4,7 @@ import { FontAwesome, Feather } from '@expo/vector-icons';
 export default function Quiz({ navigation }) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Game')}>
                 <View style={ styles.menuItem }>
                         <FontAwesome 
                             name="gamepad" 
