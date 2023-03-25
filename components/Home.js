@@ -4,6 +4,9 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
+            <Text style={ styles.menuItemTitle }>
+                SIG
+            </Text>
             <TouchableOpacity onPress={() => navigation.navigate('Dicionario')}>
                 <View style={ styles.menuItem }>
                     <FontAwesome 
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
       flex: 1, 
       justifyContent: 'center',
       backgroundColor: '#16a085',
-      padding: 10,
+      paddingHorizontal: 10,
     },
     menuItem: {
         backgroundColor: '#127a66',
@@ -57,5 +60,11 @@ const styles = StyleSheet.create({
     },
     menuItemIcon: {
         alignSelf: 'center'
+    },
+    menuItemTitle: {
+        color: 'white',
+        fontSize: 100,
+        fontWeight: 'bold',
+        alignSelf: 'center',
     }
 });

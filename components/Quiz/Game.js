@@ -1,9 +1,21 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import React from "react";
+import { siglas } from '../../utils/siglas.js';
 
 export default function Game() {
     const [resposta, setResposta] = useState('');
+    const [sigla, setSigla] = useState({});
+    const buscarSiglaAleatoria = siglas[Math.floor(Math.random() * siglas.length)];
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const resultado = buscarSiglaAleatoria;
+            setSigla(resultado);
+        }, [])
+    );
 
     return (
         <View style={styles.container} >
@@ -18,7 +30,7 @@ export default function Game() {
                 </View>
             </View>
             <View>
-                <Text style={styles.sigla}>TGIF</Text>
+                <Text style={styles.sigla}>{sigla.titulo}</Text>
             </View>
             <View style={styles.input}>
                 <TextInput
@@ -32,7 +44,7 @@ export default function Game() {
                 <TouchableOpacity>
                     <Text style={styles.btns.enviar}>Enviar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => setSigla(buscarSiglaAleatoria)}>
                     <Text style={styles.btns.pular}>Pular</Text>
                 </TouchableOpacity>
             </View>
