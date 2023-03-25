@@ -1,14 +1,32 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 import { siglas } from '../../utils/siglas.js';
 
 export default function Game() {
-    const [resposta, setResposta] = useState('');
+    const [text, onChangeText] = useState('');
     const [sigla, setSigla] = useState({});
+    const [correto, setCorreto] = useState(false);
+
     const buscarSiglaAleatoria = siglas[Math.floor(Math.random() * siglas.length)];
+    const formatar = input => input.trim().toLowerCase();
+
+    const handleEnviar= () => {
+        const resposta = formatar(text);
+        const significado = formatar(sigla.significado);
+
+        if (resposta == significado) {
+            setCorreto(true);
+            setTimeout(() => handlePular(), 1000);
+        }
+    }
+    const handlePular = () => {
+        onChangeText('');
+        setCorreto(false);
+        setSigla(buscarSiglaAleatoria);
+    }
 
     useFocusEffect(
         React.useCallback(() => {
@@ -22,7 +40,7 @@ export default function Game() {
             <View style={styles.pontosETempo}>
                 <View style={styles.pontos}>
                     <AntDesign name="star" size={24} color="white" />
-                    <Text style={styles.pontos.valor}>10000</Text>
+                    <Text style={styles.pontos.valor}>0</Text>
                 </View>
                 <View style={styles.tempo}>
                     <FontAwesome5 name="clock" size={24} color="white" />
@@ -32,19 +50,25 @@ export default function Game() {
             <View>
                 <Text style={styles.sigla}>{sigla.titulo}</Text>
             </View>
+            <View>
+                <Text>{sigla.significado}</Text>
+                {correto && <Text>correto!</Text>}
+            </View>
             <View style={styles.input}>
-                <TextInput
-                    value={resposta}
-                    onChangeText={(resposta) => setResposta(resposta)}
-                    placeholder={'Resposta'}
-                    style={styles.input}
-                />
+                <SafeAreaView>
+                    <TextInput
+                        value={text}
+                        onChangeText={onChangeText}
+                        placeholder={'Resposta'}
+                        style={styles.input}
+                    />
+                </SafeAreaView>
             </View>
             <View style={styles.btns}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleEnviar}>
                     <Text style={styles.btns.enviar}>Enviar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setSigla(buscarSiglaAleatoria)}>
+                <TouchableOpacity onPress={handlePular}>
                     <Text style={styles.btns.pular}>Pular</Text>
                 </TouchableOpacity>
             </View>
