@@ -1,50 +1,76 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView } from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { siglas } from '../../utils/siglas.js';
 
-export default function Game() {
+export default function Game({ navigation }) {
+    const [pontos, setPontos] = useState(0);
+    const [segundos, setSegundos] = useState(0);
     const [text, onChangeText] = useState('');
     const [sigla, setSigla] = useState({});
+    const [respondido, setRespondido] = useState(false);
     const [correto, setCorreto] = useState(false);
 
     const buscarSiglaAleatoria = siglas[Math.floor(Math.random() * siglas.length)];
-    const formatar = input => input.trim().toLowerCase();
+    const formatar = input => input.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ""); // remove acentos
 
     const handleEnviar= () => {
         const resposta = formatar(text);
         const significado = formatar(sigla.significado);
-
-        if (resposta == significado) {
-            setCorreto(true);
-            setTimeout(() => handlePular(), 1000);
+        const ponto = 100;
+        console.log('resposta:',resposta, 'significado:',significado) 
+        if (resposta == significado) { 
+            setCorreto(true); 
+            setPontos(pontos + ponto);
+        } else { 
+            setCorreto(false); 
         }
+
+        setRespondido(true);
+        setTimeout(() => handlePular(), 1000);
     }
     const handlePular = () => {
         onChangeText('');
         setCorreto(false);
+        setRespondido(false);
         setSigla(buscarSiglaAleatoria);
     }
 
     useFocusEffect(
         React.useCallback(() => {
-            const resultado = buscarSiglaAleatoria;
-            setSigla(resultado);
+            setSigla(buscarSiglaAleatoria);
+            setPontos(0);
+            setSegundos(0);
+
+            const timer = setInterval(() => {
+                setSegundos(segs => segs+1);
+            }, 1000);
+
+            return () => clearInterval(timer);
         }, [])
     );
+
+    useEffect(() => {
+        const timeout = 10;
+
+        if (segundos > timeout) { 
+            setSegundos(0);
+            navigation.navigate("GameOver", { pontos: pontos });
+        }
+    }, [segundos]);
 
     return (
         <View style={styles.container} >
             <View style={styles.pontosETempo}>
                 <View style={styles.pontos}>
                     <AntDesign name="star" size={24} color="white" />
-                    <Text style={styles.pontos.valor}>0</Text>
+                    <Text style={styles.pontos.valor}>{pontos}</Text>
                 </View>
                 <View style={styles.tempo}>
                     <FontAwesome5 name="clock" size={24} color="white" />
-                    <Text style={styles.tempo.valor}>0</Text>
+                    <Text style={styles.tempo.valor}>{segundos}</Text>
                 </View>
             </View>
             <View>
@@ -52,7 +78,7 @@ export default function Game() {
             </View>
             <View>
                 <Text>{sigla.significado}</Text>
-                {correto && <Text>correto!</Text>}
+                { respondido && <Text>{ correto ? 'Correto!' : 'Incorreto!' }</Text>}
             </View>
             <View style={styles.input}>
                 <SafeAreaView>
