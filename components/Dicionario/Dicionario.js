@@ -1,55 +1,40 @@
-import { FlatList, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { useState, useMemo } from 'react';
+import { FlatList, View, TouchableOpacity, StyleSheet, SafeAreaView, TextInput } from 'react-native';
+import { useState } from 'react';
 
 import Sigla from './Sigla.js';
-import { Filtro } from './Filtro.js';
-import { siglasTags, siglasOrdenadas } from '../../utils/siglas.js';
+import { siglasOrdenadas } from '../../utils/siglas.js';
 
 export default function Dicionario({ navigation }) {
-    // const [isFiltroOpen, setFiltroOpen] = useState(false);
-    // const [filtro, setFiltro] = useState('');
-
-    const memoizedValue = useMemo(() => renderItem, siglasOrdenadas);
+    const [busca, setBusca] = useState('');
+    const siglasFiltradas = siglasOrdenadas.filter(sigla => sigla.titulo.toLowerCase().includes(busca.toLowerCase()));
+    const renderSiglas= busca != '' ? siglasFiltradas : siglasOrdenadas;
 
     const renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('SiglaDetalhe', { id: item.id })}>
             <Sigla titulo={item.titulo} />
         </TouchableOpacity>
     );
-    // const handleChange = (itemValue) => itemValue == 'default' ? setFiltro('') : setFiltro(itemValue);
-    
-    // const siglasFiltradas = filtro !== '' ? siglasOrdenadas.filter((sigla) => sigla.tags.join(',') == filtro) : siglasOrdenadas;
 
     return (
         <View style={ styles.container }>
-            {/* <TouchableOpacity onPress={() => setFiltroOpen(!isFiltroOpen)}>
-                <Filtro />
-            </TouchableOpacity>
-            {isFiltroOpen &&
-                <View style={ styles.containerFiltro }>
-                    <Picker
-                        selectedValue={filtro}
-                        onValueChange={(itemValue) => handleChange(itemValue)}
-                        mode='dropdown'
-                        dropdownIconColor='white'
-                        style={ styles.picker }
-                    >
-                        <Picker.Item label='Nenhum' value='default' />
-                        {siglasTags.map((tags, idx) => <Picker.Item key={idx} label={tags.join(',')} value={tags.join(',')} />)}
-                    </Picker>
-                </View> 
-            } */}
+            <View style={ styles.busca } >
+               <SafeAreaView>
+                    <TextInput 
+                        value={busca}
+                        onChangeText={setBusca}
+                        placeholder="Buscar uma sigla"
+                        style={styles.input}
+                    />
+                </SafeAreaView> 
+            </View>
             <FlatList 
-                // data={siglasFiltradas}
                 maxToRenderPerBatch={10}
                 updateCellsBatchingPeriod={50}
                 initialNumToRender={10}
                 windowSize={11}
-                data={siglasOrdenadas}
+                data={renderSiglas}
                 renderItem={renderItem}
-                // renderItem={memoizedValue}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => String(index)}
                 style={ styles.lista }
             />
         </View>
@@ -60,16 +45,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: '#16a085', 
-        paddingVertical: 10 
+        padding: 10 
     },
     containerFiltro: {
         paddingHorizontal: 10
     },
     lista: {
         flex: 1, 
-        padding: 10
     },
     picker: {
         color: 'white'
+    },
+    input: {
+        alignSelf: 'center',
+        alignContent: 'flex-end',
+        backgroundColor: '#fff',
+        padding: 10,
+        borderRadius: 20,
+        width: '100%',
+        paddingLeft: 20
+    },
+    busca: {
+        paddingVertical: 10
     }
 })

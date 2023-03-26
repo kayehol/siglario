@@ -14,10 +14,6 @@ export default function SiglaDetalhe({ route }) {
                 <Text style={ styles.significado }>
                     {sigla.significado}
                 </Text>
-                <Text style={ styles.tagTexto}>
-                    Categoria:
-                </Text>
-                {sigla.tags.map((sigla, idx) => <Text key={idx} style={ styles.tag }>{sigla.toLocaleUpperCase()}</Text>)}
             </View>
         )
     })
