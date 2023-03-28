@@ -1,33 +1,37 @@
 import { View, Text, StyleSheet } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from "react";
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function Ranking() {
-    // fetch with react-query or fetch api
-    const rankingMock = [
-        { nome: 'Kaye', total: '130000'},
-        { nome: 'Mari', total: '100000'},
-        { nome: 'Gabriela', total: '50200'},
-        { nome: 'Pedrinho', total: '90350'},
-        { nome: 'José', total: '1000'},
-        { nome: 'Maria', total: '500'},
-        { nome: 'João', total: '200'},
-        { nome: 'Marcos', total: '50'},
-        { nome: 'Rodolfo', total: '30'},
-        { nome: 'Smhir', total: '20'},
-    ];
+    // const rankingMock = [{ nome: 'Kayê', total: 3000}];
+    const [ranking, setRanking] = useState([]);
+    const getData = async () => {
+        try {
+            const jsonPlacar = await AsyncStorage.getItem('placar')
+            jsonPlacar !== null && setRanking([JSON.parse(jsonPlacar)]); 
+        } catch(e) {
+            console.log(e)
+        }
+    }
+    function fillPlacar() {
+        getData()
+    }
+    useEffect(() => fillPlacar(), []);
 
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>
                 <FontAwesome name="trophy" size={40} color="gold" />
             </Text>
-            {rankingMock.map((user, idx) => (
+            { ranking.length > 0 && ranking.map((user, idx) => (
                 <View key={idx} style={styles.linha(idx)}>
                     <Text style={styles.nome} key={idx}> {idx+1} - {user.nome}</Text>
                     <Text style={styles.pontos}>{user.total}</Text>
                 </View>
             ))
             }          
+            <Text></Text>
         </View>
     )
 }

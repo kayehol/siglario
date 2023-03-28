@@ -10,6 +10,7 @@ import SiglaDetalhe from './components/Dicionario/SiglaDetalhe.js';
 import Ranking from './components/Quiz/Ranking.js';
 import GameOver from './components/Quiz/GameOver.js';
 import Game from './components/Quiz/Game.js';
+import EnviarPlacar from './components/Quiz/EnviarPlacar.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,11 @@ export default function App() {
         <Stack.Screen 
           name="Game"
           component={Game}
+          options={{ title: ''}}
+        />
+        <Stack.Screen 
+          name="EnviarPlacar"
+          component={EnviarPlacar}
           options={{ title: ''}}
         />
       </Stack.Navigator>

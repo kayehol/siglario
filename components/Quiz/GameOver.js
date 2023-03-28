@@ -2,11 +2,15 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function GameOver({ route, navigation }) {
     const { pontos } = route.params;
+
     return (
         <View style={ styles.container }>
             <Text style={ styles.menuItemText }>VOCÊ FEZ {pontos} PONTOS</Text>
             <View>
-                <TouchableOpacity style={ styles.menuItem }>
+                <TouchableOpacity 
+                    onPress={() => navigation.navigate('EnviarPlacar', {total: pontos})}
+                    style={ styles.menuItem }
+                >
                     <Text style={ styles.menuItemText }>Enviar resultado</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
