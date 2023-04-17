@@ -4,6 +4,7 @@ import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { useState, useEffect } from "react";
 import React from "react";
 import { siglas } from '../../utils/siglas.js';
+import { cores } from '../UI/cores.js';
 
 export default function Game({ navigation }) {
     const [pontos, setPontos] = useState(0);
@@ -20,7 +21,7 @@ export default function Game({ navigation }) {
         const resposta = formatar(text);
         const significado = formatar(sigla.significado);
         const ponto = 100;
-        console.log('resposta:',resposta, 'significado:',significado) 
+        
         if (resposta == significado) { 
             setCorreto(true); 
             setPontos(pontos + ponto);
@@ -53,7 +54,7 @@ export default function Game({ navigation }) {
     );
 
     useEffect(() => {
-        const timeout = 10;
+        const timeout = 60;
 
         if (segundos > timeout) { 
             setSegundos(0);
@@ -77,8 +78,7 @@ export default function Game({ navigation }) {
                 <Text style={styles.sigla}>{sigla.titulo}</Text>
             </View>
             <View>
-                <Text>{sigla.significado}</Text>
-                { respondido && <Text>{ correto ? 'Correto!' : 'Incorreto!' }</Text>}
+                { respondido && <Text style={styles.resultado}>{ correto ? 'Correto!' : 'Incorreto!' }</Text>}
             </View>
             <View style={styles.input}>
                 <SafeAreaView>
@@ -104,7 +104,7 @@ export default function Game({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#16a085',
+        backgroundColor: cores.corFundo,
         padding: 20,
         display: 'flex',
         justifyContent: 'space-between',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         valor: {
             fontSize: 30,
-            color: '#fff',
+            color: cores.corTexto,
             marginLeft: 10,
             fontWeight: 'bold'
         }
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         valor: {
             fontSize: 30,
-            color: '#fff',
+            color: cores.corTexto,
             marginLeft: 10,
             fontWeight: 'bold'
         }
@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
     sigla: {
         alignSelf: 'center',
         padding: 40,
-        color: '#fff',
+        color: cores.corTexto,
         fontSize: 50,
         fontWeight: 'bold',
-        backgroundColor: '#127a66',
+        backgroundColor: cores.corBotao,
         borderRadius: 40,
         width: '100%',
         textAlign: 'center'
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         enviar: {
-            color: '#fff',
-            backgroundColor: '#127a66',
+            color: cores.corTexto,
+            backgroundColor: cores.corBotao,
             fontSize: 30,
             paddingHorizontal: 30,
             paddingVertical: 15,
@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
             alignSelf: 'center'
         },
         pular: {
-            color: '#fff',
-            backgroundColor: '#127a66',
+            color: cores.corTexto,
+            backgroundColor: cores.corBotao,
             fontSize: 20,
             paddingHorizontal: 15,
             paddingVertical: 10,
@@ -177,9 +177,14 @@ const styles = StyleSheet.create({
     input: {
         alignSelf: 'center',
         alignContent: 'flex-end',
-        backgroundColor: '#fff',
+        backgroundColor: cores.corTexto,
         padding: 10,
         borderRadius: 20,
         width: '100%'
+    },
+    resultado: {
+        color: cores.corTexto,
+        fontSize: 20,
+        fontWeight: 'bold'
     }
 });

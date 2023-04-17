@@ -1,6 +1,8 @@
 import { View, Text, TextInput, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from "react";
+import BotaoMenu from "../UI/BotaoMenu";
+import { cores } from "../UI/cores.js";
 
 export default function GameOver({ route, navigation }) {
     const [nome, onChangeText] = useState("");
@@ -28,15 +30,8 @@ export default function GameOver({ route, navigation }) {
                         style={styles.input}
                     />
                 </SafeAreaView>
-                <TouchableOpacity 
-                    onPress={() => handleEnviar(nome,total)}
-                    style={ styles.menuItem }
-                >
-                    <Text 
-                        style={ styles.menuItemText }
-                    >
-                        Enviar pontuação
-                    </Text>
+                <TouchableOpacity onPress={() => handleEnviar(nome,total)}>
+                    <BotaoMenu texto="Enviar pontuação" />
                 </TouchableOpacity>
             </View>
         </View>
@@ -46,31 +41,8 @@ const styles = StyleSheet.create({
     container: {
       flex: 1, 
       justifyContent: 'center',
-      backgroundColor: '#16a085',
+      backgroundColor: cores.corFundo,
       paddingHorizontal: 10,
-    },
-    menuItem: {
-        backgroundColor: '#127a66',
-        padding: 20,
-        marginTop: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
-    menuItemText: {
-        color: 'white',
-        fontSize: 28,
-        marginLeft: 10,
-        alignSelf: 'center'
-    },
-    menuItemIcon: {
-        alignSelf: 'center'
-    },
-    menuItemTitle: {
-        color: 'white',
-        fontSize: 100,
-        fontWeight: 'bold',
-        alignSelf: 'center',
     },
     input: {
         alignSelf: 'center',

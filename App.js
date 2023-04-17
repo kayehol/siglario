@@ -11,6 +11,7 @@ import Ranking from './components/Quiz/Ranking.js';
 import GameOver from './components/Quiz/GameOver.js';
 import Game from './components/Quiz/Game.js';
 import EnviarPlacar from './components/Quiz/EnviarPlacar.js';
+import { cores } from './components/UI/cores.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,9 +23,9 @@ export default function App() {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#127a66'
+            backgroundColor: cores.corBotao 
           },
-          headerTintColor: 'white',
+          headerTintColor: cores.corTexto,
           headerTitleStyle: {
             fontWeight: 'bold'
           }

@@ -1,47 +1,18 @@
-import {StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { FontAwesome, Feather } from '@expo/vector-icons';
+import {StyleSheet, TouchableOpacity, View } from 'react-native';
+import BotaoMenu from '../UI/BotaoMenu';
+import { cores } from '../UI/cores.js';
 
 export default function Quiz({ navigation }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate('Game')}>
-                <View style={ styles.menuItem }>
-                        <FontAwesome 
-                            name="gamepad" 
-                            size={24} 
-                            color="white" 
-                            style={ styles.menuItemIcon } 
-                        />
-                        <Text style={ styles.menuItemText }>
-                            Iniciar
-                        </Text>
-                    </View>
+                <BotaoMenu nomeIcone="gamepad" texto="Iniciar" />
             </TouchableOpacity>
-            <TouchableOpacity>
-                <View style={ styles.menuItem }>
-                        <Feather 
-                            name="settings" 
-                            size={24} 
-                            color="white" 
-                            style={ styles.menuItemIcon } 
-                        />
-                        <Text style={ styles.menuItemText }>
-                            Opções
-                        </Text>
-                    </View>
+            {}<TouchableOpacity>
+                <BotaoMenu nomeIcone="opcoes" texto="Opções" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Ranking')}>
-                <View style={ styles.menuItem }>
-                        <FontAwesome 
-                            name="list-ul" 
-                            size={24} 
-                            color="white" 
-                            style={ styles.menuItemIcon } 
-                        />
-                        <Text style={ styles.menuItemText }>
-                            Ranking
-                        </Text>
-                    </View>
+                <BotaoMenu nomeIcone="lista" texto="Ranking" />
             </TouchableOpacity>
         </View>
     );
@@ -51,24 +22,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         justifyContent: 'center',
-        backgroundColor: '#16a085',
+        backgroundColor: cores.corFundo, 
         padding: 10,
-      },
-      menuItem: {
-          backgroundColor: '#127a66',
-          padding: 20,
-          marginTop: 20,
-          borderRadius: 10,
-          flexDirection: 'row',
-          justifyContent: 'center'
-      },
-      menuItemText: {
-          color: 'white',
-          fontSize: 28,
-          marginLeft: 10,
-          alignSelf: 'center'
-      },
-      menuItemIcon: {
-          alignSelf: 'center'
-      }
+    },
 });

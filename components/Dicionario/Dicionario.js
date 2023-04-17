@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import Sigla from './Sigla.js';
 import { siglasOrdenadas } from '../../utils/siglas.js';
+import { cores } from '../UI/cores.js';
 
 export default function Dicionario({ navigation }) {
     const [busca, setBusca] = useState('');
@@ -44,7 +45,7 @@ export default function Dicionario({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: '#16a085', 
+        backgroundColor: cores.corFundo, 
         padding: 10 
     },
     containerFiltro: {
@@ -52,9 +53,6 @@ const styles = StyleSheet.create({
     },
     lista: {
         flex: 1, 
-    },
-    picker: {
-        color: 'white'
     },
     input: {
         alignSelf: 'center',

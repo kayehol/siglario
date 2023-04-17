@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View } from 'react-native';
 import { siglas } from '../../utils/siglas.js';
+import { cores } from '../UI/cores.js';
 
 export default function SiglaDetalhe({ route }) {
     const { id } = route.params;
@@ -27,7 +28,7 @@ export default function SiglaDetalhe({ route }) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#16a085',
+      backgroundColor: cores.corFundo,
       padding: 20,
       alignItems: 'flex-start', 
       justifyContent: 'flex-start'
@@ -35,25 +36,11 @@ const styles = StyleSheet.create({
     sigla: {
         fontSize: 40,
         fontWeight: 'bold',
-        color: 'white',
+        color: cores.corTexto,
     },
     significado: {
         fontSize: 34,
-        color: 'white',
+        color: cores.corTexto,
         marginTop: 10
     },
-    tagTexto: {
-        color: 'white',
-        fontSize: 16,
-        paddingTop: 20
-    },
-    tag: {
-        fontSize: 16,
-        color: 'white',
-        backgroundColor: '#0b4d40',
-        marginTop: 10,
-        padding: 10,
-        alignSelf: 'flex-start',
-        borderRadius: 10
-    }
 });

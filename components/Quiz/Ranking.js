@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from "react";
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Ranking() {
-    // const rankingMock = [{ nome: 'Kayê', total: 3000}];
+import { cores } from '../UI/cores.js';
+import BotaoMenu from '../UI/BotaoMenu';
+
+export default function Ranking({ navigation }) {
     const [ranking, setRanking] = useState([]);
     const getData = async () => {
         try {
@@ -31,7 +33,9 @@ export default function Ranking() {
                 </View>
             ))
             }          
-            <Text></Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+                <BotaoMenu texto="Menu" />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         justifyContent: 'center',
-        backgroundColor: '#16a085',
+        backgroundColor: cores.corFundo,
         padding: 20,
     },
     titulo: {

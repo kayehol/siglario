@@ -1,4 +1,5 @@
 import {StyleSheet, Text, View } from 'react-native';
+import { cores } from '../UI/cores.js';
 
 export default function Sigla({ titulo }) {
     return (
@@ -12,13 +13,14 @@ export default function Sigla({ titulo }) {
 
 const styles = StyleSheet.create({
     sigla: {
-        backgroundColor: '#127a66',
+        backgroundColor: cores.corBotao,
         padding: 20,
         marginVertical: 8,
         borderRadius: 10
     },
     titulo: {
         fontSize: 32,
-        color: '#fff'
+        fontWeight: 'bold',
+        color: cores.corTexto 
     },
 });
